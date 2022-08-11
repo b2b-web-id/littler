@@ -1,8 +1,7 @@
-/*  -*- mode: C; c-indent-level: 8; c-basic-offset: 4; indent-tabs-mode: nil; -*-
- *
+/*
  *  littler - Provides hash-bang (#!) capability for R (www.r-project.org)
  *
- *  Copyright (C) 2006 - 2020  Jeffrey Horner and Dirk Eddelbuettel
+ *  Copyright (C) 2006 - 2022  Jeffrey Horner and Dirk Eddelbuettel
  *
  *  littler is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -29,6 +28,7 @@
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <unistd.h>
+#include <stdint.h>
 
 #include "config.h"
 /*#include "config-const.h"*/
@@ -413,7 +413,7 @@ void showVersionAndExit() {
                    R_SVN_REVISION);
         }
     }
-    printf("\n\nCopyright (C) 2006 - 2020  Jeffrey Horner and Dirk Eddelbuettel\n"
+    printf("\n\nCopyright (C) 2006 - 2021  Jeffrey Horner and Dirk Eddelbuettel\n"
            "\n"
            "%s is free software and comes with ABSOLUTELY NO WARRANTY.\n"
            "You are welcome to redistribute it under the terms of the\n"
@@ -451,23 +451,29 @@ void showUsageAndExit() {
     exit(0);
 }
 
-/* set seed for tempfile()  */
-void init_rand()
-{
-    unsigned int seed;
-#if HAVE_GETTIMEOFDAY
+/* set seed for tempfile()
+   updated to R 4.1.0 src/main/times.c and its helper function TimeToSeed() */
+void init_rand() {
+    unsigned int seed, pid = getpid();
+#if defined(HAVE_CLOCK_GETTIME) && defined(CLOCK_REALTIME)
+    {
+        struct timespec tp;
+        clock_gettime(CLOCK_REALTIME, &tp);
+        seed = (unsigned int)(((uint_least64_t) tp.tv_nsec << 16) ^ tp.tv_sec);
+    }
+#elif defined(HAVE_GETTIMEOFDAY)
     {
         struct timeval tv;
         gettimeofday (&tv, NULL);
-        /* changed uint64_t to unsigned int. Need to figure out why PBR used that instead. */
-        seed = ((unsigned int) tv.tv_usec << 16) ^ tv.tv_sec;
+        seed = (unsigned int)(((uint_least64_t) tv.tv_usec << 16) ^ tv.tv_sec);
     }
-#elif HAVE_TIME
-    seed = (unsigned int) time(NULL);
 #else
-    /* unlikely, but use random contents */
+    /* C89, so must work */
+    seed = (Int32) time(NULL);
 #endif
-    srand(seed);
+    seed ^= (pid <<16);
+
+    srand(seed);                /* also called by R in src/main/main.c */
 }
 
 int main(int argc, char **argv){
@@ -616,7 +622,7 @@ int main(int argc, char **argv){
 
     if (!interactive) {			/* new in littler 0.1.3 */
         R_DefParams(&Rst);
-        Rst.R_Interactive = 0;		/* sets interactive() to eval to false */
+        Rst.R_Interactive = 0;	/* sets interactive() to eval to false */
         R_SetParams(&Rst);
     }
 

@@ -1,5 +1,155 @@
 ###  2021 
 
+2021-12-03  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.3.15 
+        * configure.ac: Idem 
+        * configure: Idem 
+ 
+2021-12-02  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/mdweave2html.r: Add caller for simplermarkdown 
+ 
+2021-11-17  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Remove Travis badge 
+        * .travis.yml: Remove Travis YAML config 
+ 
+2021-10-27  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll minor version and date, 
+        (Suggests): Use simplermarkdown not knitr, rmarkdown, minidown 
+ 
+        * vignettes/littler-faq.md: Converted to simplermarkdown vignette 
+        * vignettes/littler-examples.md: Idem 
+        * vignettes/water.css: Added 
+ 
+2021-10-26  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/build.r: Set --compact-vignettes to both 
+ 
+         * inst/examples/getRStudioDesktop.r: Updated to changed urls 
+        * inst/examples/getRStudioServer.r: Idem 
+ 
+2021-10-23  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll minor version and date 
+ 
+2021-10-22  Gergely Daroczi  <daroczig@rapporter.net> 
+ 
+        * inst/examples/install2.r: Check failure from parallel installs 
+ 
+2021-10-20  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll minor version and date 
+ 
+2021-10-20  Gergely Daroczi  <daroczig@rapporter.net> 
+ 
+        * inst/examples/install2.r: Support download methods argument 
+ 
+2021-10-18  John Kerl  <kerl.john.r@gmail.com> 
+ 
+        * README.md: Fix three typos 
+ 
+2021-10-05  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.3.14 
+        * configure.ac: Idem 
+        * configure: Idem 
+ 
+        * configure.ac: Updated via 'autoupdate' and 'autoreconf 
+        --warnings=obsolete' followed by light edit 
+        * src/config.h.in: Idem 
+ 
+2021-10-03  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (URL): Add documentation site to URL entry 
+ 
+2021-09-18  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/getQuartoCli.r: Add simple convenience downloader for 
+        Quarto command-line .deb package parsing GitHub release result 
+ 
+2021-09-14  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/roxy.r: Add -m | --minimal variant for namespace and 
+        rd roclets using the cached older version 
+ 
+2021-08-31  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll minor version and date 
+ 
+2021-08-30  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+         * inst/examples/getRStudioDesktop.r: Updated to changed names 
+        * inst/examples/getRStudioServer.r: Idem 
+ 
+2021-07-24  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.3.13 
+        * configure.ac: Idem 
+        * configure: Idem 
+ 
+        * tests/simpleTests.R: Slightly extended 
+        * R/test.R (test): Minor tweak 
+ 
+        * vignettes/littler-faq.Rmd (vignette): Update one URL 
+        * vignettes/littler-faq.html: Re-rendered 
+        * vignettes/littler-examples.html: Idem 
+ 
+        * .editorconfig: Added 
+        * .Rbuildignore: Added .editorconfig 
+ 
+2021-07-21  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/NEWS.Rd: Added entries for several changes since last release 
+ 
+2021-07-19  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/kitten.r: Note bunny and puppy only work with plain 
+ 
+2021-07-09  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll minor version and date 
+ 
+        * inst/examples/kitten.r: Correct calls for arma and eigen 
+ 
+2021-06-28  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/cranIncoming.r: Corrected message 
+ 
+2021-06-28  Aaron Wolen  <aaron@wolen.com> 
+ 
+        * inst/examples/tt.r: Correct two typos 
+ 
+2021-04-04  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (URL): Add repo URL 
+ 
+2021-03-28  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * docs/mkdmt-src/: Moved mkdocs-material input 
+ 
+2021-03-24  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * vignettes/littler-faq.Rmd (vignette): Add %\Vignette{Encoding,Package} 
+        * vignettes/littler-examples.Rmd (vignette): Idem 
+ 
+2021-03-12  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/kitten.r: Allow calling Rcpp{,Arma,Eigen}.package.skeleton 
+        * inst/examples/roxy.r: Expand roclets example and argument test 
+ 
+2021-03-10  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/getRStudioDesktop.r: Updated to cope with rvest change 
+        * inst/examples/getRStudioServer.r: Idem 
+ 
+2021-03-01  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * docs-src/: Updated reflecting current files 
+        * docs/: Ditto 
+ 
 2021-02-22  Dirk Eddelbuettel  <edd@debian.org> 
  
         * inst/examples/kitten.r: Add bunny option for kitten() 
@@ -205,7 +355,7 @@
  
 2019-10-28  Dirk Eddelbuettel  <edd@debian.org> 
  
-        * inst/examples/update.r: Now only considers writeable directories  
+        * inst/examples/update.r: Now only considers writeable directories 
  
 2019-10-27  Dirk Eddelbuettel  <edd@debian.org> 
  
@@ -240,7 +390,7 @@
 2019-09-26  Dirk Eddelbuettel  <edd@debian.org> 
  
         * inst/examples/update.r: Correct libloc help text and default value 
-        * inst/examples/rcc.r: Use max(all rc values) as status return  
+        * inst/examples/rcc.r: Use max(all rc values) as status return 
  
 2019-09-25  Dirk Eddelbuettel  <edd@debian.org> 
  
@@ -328,7 +478,7 @@
  
 2019-03-14  Dirk Eddelbuettel  <edd@debian.org> 
  
-        * DESCRIPTION (Version, Date): Roll minor version  
+        * DESCRIPTION (Version, Date): Roll minor version 
  
         * configure.ac: Correct use of AC_DEFINE 
         * configure: Idem 
@@ -366,7 +516,7 @@
 
 2018-12-31  Dirk Eddelbuettel  <edd@debian.org> 
  
-        * DESCRIPTION (Version, Date): Roll minor version  
+        * DESCRIPTION (Version, Date): Roll minor version 
  
         * inst/examples/update.r: Add -n | --ncpus support 
  
@@ -1403,4 +1553,3 @@
         * Release 0.0.1: 
  
         * Initial release of Rinterp: hashbang support for R 
- 

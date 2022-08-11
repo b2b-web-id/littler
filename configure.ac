@@ -1,14 +1,13 @@
 #   -*- mode: Autoconf; tab-width: 4; -*-
 # Process this file with autoconf to produce a configure script.
 
-# require at least autoconf 2.61
-AC_PREREQ(2.61)
+# require at least autoconf 2.69
+AC_PREREQ([2.69])
 
 # Every other copy of the package version number gets its value from here
 # The m4_esyscmd_s invocation is due to an excellent StackOverflow answer.
-AC_INIT([littler], m4_esyscmd_s([awk -e '/^Version:/ {print $2}' DESCRIPTION]))
-# or hand-editing instead of having the autoconf call pull it in
-# AC_INIT([littler], [0.3.9])
+# Sadly it breaks under Debian package builds (likely due to a missing component)
+AC_INIT([littler],[0.3.15],[edd@debian.org])
 
 #  Look for ancillary configure tools in tools
 dnl AC_CONFIG_AUX_DIR(tools)
@@ -47,7 +46,6 @@ AC_PROG_CC
 # Checks for libraries.
 
 # Checks for header files.
-dnl AC_HEADER_STDC
 dnl AC_CHECK_HEADERS( stdio.h string.h errno.h stdlib.h sys/types.h sys/stat.h unistd.h)
 AC_CHECK_HEADER([getopt.h],
     [AC_DEFINE([HAVE_GETOPT_H], 1, [Define to 1 if you have <getopt.h>.])],
@@ -56,11 +54,12 @@ AC_CHECK_HEADER([getopt.h],
 AC_HEADER_MAJOR
 
 # Checks for library functions.
+AC_CHECK_FUNC(setenv,AC_DEFINE(HAVE_SETENV,1,[Define if you have the setenv function.]))
+AC_CHECK_FUNC(clock_gettime,AC_DEFINE(HAVE_CLOCK_GETTIME,1,[Define if you have clock_gettime.]))
+AC_CHECK_FUNC(realtime,AC_DEFINE(HAVE_REALTIME,1,[Define if you have realtime.]))
+AC_CHECK_FUNC(gettimeofday,AC_DEFINE(HAVE_GETTIMEOFDAY,1,[Define if you have the gettimeofday function.]))
+AC_CHECK_FUNC(time,AC_DEFINE(HAVE_TIME,1,[Define if you have the time function.]))
 
-AC_CHECK_FUNC(setenv,AC_DEFINE(HAVE_SETENV,1, [Define if you have the setenv function.]))
-AC_CHECK_FUNC(gettimeofday,
-    AC_DEFINE(HAVE_GETTIMEOFDAY,1, [Define if you have the gettimeofday function.]))
-AC_CHECK_FUNC(time,AC_DEFINE(HAVE_TIME,1, [Define if you have the time function.]))
 
 # Checks for typedefs, structures, and compiler characteristics.
 
@@ -122,8 +121,7 @@ fi
 
 # Java
 AC_ARG_WITH([java-libs],
-	[AC_HELP_STRING([--with-java-libs],
-        [Link littler to R's java libraries])],
+	[AS_HELP_STRING([--with-java-libs],[Link littler to R's java libraries])],
               [if test x$"$withval" != xno; then
                 	AM_LDFLAGS="${AM_LDFLAGS} `${RPROG} CMD config JAVA_LIBS | grep -v ERROR`"
                fi],
@@ -131,8 +129,7 @@ AC_ARG_WITH([java-libs],
 
 dnl # Tcl/TK
 dnl AC_ARG_WITH([tcltk-libs],
-dnl [AC_HELP_STRING([--with-tcltk-libs],
-dnl             [Link littler to R's tcltk libraries])],
+dnl [AS_HELP_STRING([--with-tcltk-libs],[dnl             Link littler to R's tcltk libraries])],
 dnl     [
 dnl             if test x$"$withval" != xno; then
 dnl                             AM_LDFLAGS="${AM_LDFLAGS} `${RPROG} CMD config TCLTK_LIBS | grep -v ERROR`"
@@ -176,4 +173,5 @@ AC_SUBST(RUN_NAMETOOL)
 AC_SUBST(GITREVISION)
 AC_SUBST(GITDATE)
 
-AC_OUTPUT([src/Makevars src/gitversion.h])
+AC_CONFIG_FILES([src/Makevars src/gitversion.h])
+AC_OUTPUT

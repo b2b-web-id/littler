@@ -4,24 +4,28 @@
 #
 # Copyright (C) 2011 - 2014  Dirk Eddelbuettel
 # Copyright (C) 2014 - 2017  Carl Boettiger and Dirk Eddelbuettel
-# Copyright (C) 2018         Carl Boettiger, Dirk Eddelbuettel, and Brandon Bertelsen
+# Copyright (C) 2018 - 2022  Carl Boettiger, Dirk Eddelbuettel, and Brandon Bertelsen
 #
 # Released under GPL (>= 2)
 
 ## load docopt package from CRAN
 library(docopt)
 
-## configuration for docopt
-doc <- "Usage: install2.r [-l LIBLOC] [-h] [-x] [-s] [-d DEPS] [-n NCPUS] [-r REPOS...] [--error] [--] [PACKAGES ...]
+## default to first library location in .libPaths()
+libloc <- .libPaths()[1]
 
--l --libloc LIBLOC  location in which to install [default: /usr/local/lib/R/site-library]
+## configuration for docopt
+doc <- paste0("Usage: install2.r [-l LIBLOC] [-h] [-x] [-s] [-d DEPS] [-n NCPUS] [-r REPOS...] [-m METHOD] [--error] [--] [PACKAGES ...]
+
+-l --libloc LIBLOC  location in which to install [default: ", libloc, "]
 -d --deps DEPS      install suggested dependencies as well [default: NA]
 -n --ncpus NCPUS    number of processes to use for parallel install [default: getOption]
 -r --repos REPOS    repositor(y|ies) to use, or NULL for file [default: getOption]
 -e --error          throw error and halt instead of a warning [default: FALSE]
 -s --skipinstalled  skip installing already installed packages [default: FALSE]
+-m --method METHOD  method to be used for downloading files [default: auto]
 -h --help           show this help text
--x --usage          show help and short example usage"
+-x --usage          show help and short example usage")
 opt <- docopt(doc)			# docopt parsing
 
 if (opt$usage) {
@@ -49,16 +53,14 @@ if (opt$deps == "TRUE" || opt$deps == "FALSE") {
     opt$deps <- NA
 }
 
-if (length(opt$repos) == 1) {
-    ## docopt results are characters, so if we meant NULL we have to set NULL
-    if (opt$repos == "NULL")  {
-        opt$repos <- NULL
-    } else {
-        if (opt$repos == "getOption") {
-            ## as littler can now read ~/.littler.r and/or /etc/littler.r we can preset elsewhere
-            opt$repos <- getOption("repos")
-        }
-    }
+## docopt results are characters, so if we meant NULL we have to set NULL
+if (length(opt$repos) == 1 && "NULL" %in% opt$repos) {
+    opt$repos <- NULL
+}
+
+if ("getOption" %in% opt$repos) {
+    ## as littler can now read ~/.littler.r and/or /etc/littler.r we can preset elsewhere
+    opt$repos <- c(opt$repos[which(opt$repos != "getOption")], getOption("repos"))
 }
 
 if (opt$ncpus == "getOption") {
@@ -78,7 +80,8 @@ install_packages2 <- function(pkgs, ..., error = FALSE, skipinstalled = FALSE) {
             catch <-
                 grepl("download of package .* failed", e$message) ||
                 grepl("(dependenc|package).*(is|are) not available", e$message) ||
-                grepl("installation of package.*had non-zero exit status", e$message)
+                grepl("installation of package.*had non-zero exit status", e$message) ||
+                grepl("installation of one or more packages failed", e$message)
             if (catch) {
                 e <<- e
             }
@@ -99,13 +102,14 @@ install_packages2 <- function(pkgs, ..., error = FALSE, skipinstalled = FALSE) {
 isMatchingFile <- function(f) (file.exists(f) && grepl("(\\.tar\\.gz|\\.tgz|\\.zip)$", f)) || (f == ".")
 
 ## helper function which switches to local (ie NULL) repo if matching file is presented
-installArg <- function(f, lib, rep, dep, iopts, error, skipinstalled, ncpus) {
+installArg <- function(f, lib, rep, dep, iopts, error, skipinstalled, ncpus, method) {
     install_packages2(pkgs=f,
                       lib=lib,
                       repos=if (isMatchingFile(f)) NULL else rep,
                       dependencies=dep,
                       INSTALL_opts=iopts,
                       Ncpus = ncpus,
+                      method = method,
                       error = error,
                       skipinstalled = skipinstalled)
 }
@@ -134,14 +138,15 @@ isLocal <- sapply(opt$PACKAGES, isMatchingFile)
 ## possibly in parallel using up to ncpus)
 if (any(isLocal)) {
     sapply(opt$PACKAGES, installArg, opt$libloc, opt$repos, opt$deps,
-           installOpts, opt$error, opt$skipinstalled, opt$ncpus)
+           installOpts, opt$error, opt$skipinstalled, opt$ncpus, opt$method)
 } else {
     install_packages2(pkgs = opt$PACKAGES,
                       lib = opt$libloc,
                       repos = opt$repos,
-                      dependencies = opt$dep,
+                      dependencies = opt$deps,
                       INSTALL_opts = installOpts,
                       Ncpus = opt$ncpus,
+                      method = opt$method,
                       error = opt$error,
                       skipinstalled = opt$skipinstalled)
 }
