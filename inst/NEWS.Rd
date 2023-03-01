@@ -3,6 +3,44 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/littler/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/littler/issues/#1}{##1}}
 
+\section{Changes in littler version 0.3.17 (2022-10-29)}{
+  \itemize{
+    \item Changes in package
+    \itemize{
+      \item An internal function prototype was updated for \code{clang-15}.
+    }
+    \item Changes in examples
+    \itemize{
+      \item The \code{install2.r} and \code{installBioc.} were updated
+      for an update in R-devel (Tatsuya Shima and Dirk in \ghpr{104}).
+    }
+  }
+}
+
+\section{Changes in littler version 0.3.16 (2022-08-28)}{
+  \itemize{
+    \item Changes in package
+    \itemize{
+      \item The \code{configure} code checks for two more headers
+      \item The RNG seeding matches the current version in R (Dirk)
+    }
+    \item Changes in examples
+    \itemize{
+      \item A \code{cowu.r} 'check Window UCRT' helper was added (Dirk)
+      \item A \code{getPandoc.r} downloader has been added (Dirk)
+      \item The \code{-r} option tp \code{install2.r} has been
+      generalzed (Tatsuya Shima in \ghpr{95})
+      \item The \code{rcc.r} code / package checker now has
+      \code{valgrind} option (Dirk)
+      \item \code{install2.r} now installs to first element in
+      \code{.libPaths()} by default (Dirk)
+      \item A very simple \code{r2u.r} help has been added (Dirk)
+      \item The \code{installBioc.r} has been generalized and extended
+      similar to \code{install2.r} (Pieter Moris in \ghpr{103})
+    }
+  }
+}
+
 \section{Changes in littler version 0.3.15 (2021-12-03)}{
   \itemize{
     \item Changes in examples
