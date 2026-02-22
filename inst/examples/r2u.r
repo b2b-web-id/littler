@@ -2,7 +2,7 @@
 #
 # Simple r2u helper frontend
 #
-# Copyright (C) 2022 - 2025  Dirk Eddelbuettel
+# Copyright (C) 2022 - 2026  Dirk Eddelbuettel
 #
 # Released under GPL (>= 2)
 
@@ -11,7 +11,7 @@ library(docopt)
 doc <- "Usage: r2u.r [--release DIST] [--debug] [--verbose] [--force] [--xvfb] [--bioc] [--suffix SUF] [--debver DBV] [--plusdfsg] [--uncache] [--dryrun] [--compile] [--help] CMD ...
 
 Options:
--r --release DIST   release distribution to use, one of 'focal', 'jammy', 'noble' [default: noble]
+-r --release DIST   release distribution to use, one of 'focal', 'jammy', 'noble', 'resolute' [default: noble]
 -d --debug          boolean flag for extra debugging
 -v --verbose        boolean flag for verbose operation
 -f --force          boolean flag to force a build
@@ -31,10 +31,12 @@ last         reports most recent binary package sync
 count        counts packages downloaded (locally) today
 table        tabulates packages downloaded today
 package      updates the package(s) named in ... and builds
+
+Note that some of the status subcommand are somewhat dependent on auxiliary scripts on my machine.
 "
 
 opt <- docopt(doc)
-if (!is.finite(match(opt$release, c("focal", "jammy", "noble"))))
+if (!is.finite(match(opt$release, c("focal", "jammy", "noble", "resolute"))))
     stop("Unknown distro '", opt$release, "'.", call. = FALSE)
 
 if (length(opt$CMD) > 1) {
