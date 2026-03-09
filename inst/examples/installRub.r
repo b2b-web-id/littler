@@ -13,7 +13,7 @@ library(utils) 		# for osVersion
 rver <- gsub("^([\\d].[\\d]).*$", "\\1", as.character(getRversion()), perl=TRUE)
 uburel <- "noble"
 ## configuration for docopt
-doc <- paste0("Usage: installRub.r [-h] [-x] [-k] [-m] [-d] [-r REL] [-v VER] [-u UNIV] [PACKAGES]
+doc <- paste0("Usage: installRub.r [-h] [-x] [-k] [-m] [-d] [-c] [-r REL] [-v VER] [-u UNIV] [PACKAGES]
 
 -u --universe UNIV  required argument specifying universe [default: ]
 -v --version VER    R 'major.minor' version release pair to install for [default: ", rver, "]
@@ -21,6 +21,7 @@ doc <- paste0("Usage: installRub.r [-h] [-x] [-k] [-m] [-d] [-r REL] [-v VER] [-
 -k --keepoption     so not set option 'bspm.version.check' to 'TRUE' as is default
 -m --minimal        use a minimal repos vector i.e. do not add CRAN repo
 -d --disable        disable 'bspm' if set which can help with packages also on CRAN
+-c --multiverse     use 'r-multiverse' instead of 'r-universe' (may need '-u community')
 -h --help           show this help text
 -x --usage          show help and short example usage.
 
@@ -40,11 +41,14 @@ any (system-)dependency info so you may end up with missing libries you may need
 an r-universe package exists on CRAN you can cover your ground by first installing the CRAN
 version and then the r-universe version.
 
+Also note that 'community.r-multiverse.org' is also aliased to 'r-multiverse.r-universe.dev'.
+
 Examples:
   installRub.r -u rcppcore Rcpp RcppArmadillo     # installs (never than CRAN / r2u) Rcpp(Armadillo)
   installRub.r -u eddelbuettel RcppKalman         # installs non-CRAN package RcppKalman
   installRub.r rcpp@rcppcore                      # alternate to install Rcpp from RcppCore universe
   installRub.r polars@rpolars                     # alternate to install polars from rpolars universe
+  installRub.r -u community -c polars             # install polars from (stable) community multiverse
 
 installRub.r is part of littler which brings 'r' to the command-line.
 See https://dirk.eddelbuettel.com/code/littler.html for more information.\n")
@@ -63,8 +67,9 @@ if (is.null(opt$universe) && length(opt$PACKAGES) == 1) {
     opt$universe <- tokens[2]
 }
 
-univ <- paste0("https://", opt$universe, ".r-universe.dev/bin/linux/",
-               opt$release, "-", R.version$arch, "/", opt$version)
+univ <- paste0("https://", opt$universe, ".",
+               if (opt$multiverse) "r-multiverse.org" else "r-universe.dev",
+               "/bin/linux/", opt$release, "-", R.version$arch, "/", opt$version)
 
 if (!opt$keepoption) options(bspm.version.check=TRUE)
 
