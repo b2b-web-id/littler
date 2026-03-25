@@ -3,6 +3,116 @@
 \newcommand{\ghpr}{\href{https://github.com/eddelbuettel/littler/pull/#1}{##1}}
 \newcommand{\ghit}{\href{https://github.com/eddelbuettel/littler/issues/#1}{##1}}
 
+\section{Changes in littler version 0.3.22 (2026-02-03)}{
+  \itemize{
+    \item Changes in examples scripts
+    \itemize{
+      \item A new script \code{busybees.r} aggregates deadlined packages by
+      maintainer
+      \item Several small updated have been made to the (mostly internal)
+      `r2u.r` script
+      \item The \code{deadliners.r} script has refined treatment for screen
+      width
+      \item The \code{install2.r} script has new options \code{--quiet} and
+      \code{--verbose} as proposed by Zivan Karaman
+      \item The \code{rcc.r} script passes build-args to `rcmdcheck` to
+      compact vignettes and save data
+      \item The \code{installRub.r} script now defaults to 'noble' and is more
+      tolerant of inputs
+      \item The \code{installRub.r} script deals correctly with empty
+      \code{utils::osVersion} thanks to Michael Chirico
+      \item New script \code{checkPackageUrls.r} inspired by how CRAN checks
+      (with thanks to Kurt Hornik for the hint)
+      \item The \code{installGithub.r} script now adjusts to \code{bspm}
+      and takes advantage of r2u binaries for its build dependencies
+    }
+    \item Changes in package
+    \itemize{
+      \item Environment variables (read at build time) can use double quotes
+      \item Continuous intgegration scripts received a minor update
+    }
+  }
+}
+
+\section{Changes in littler version 0.3.21 (2025-03-24)}{
+  \itemize{
+    \item Changes in examples scripts
+    \itemize{
+      \item Usage text for \code{ciw.r} is improved, new options were added (Dirk)
+      \item The \sQuote{noble} release is supported by \code{r2u.r} (Dirk)
+      \item The \code{installRub.r} script has additional options (Dirk)
+      \item The \code{ttlt.r} script has a new \code{load_package} argument
+      (Dirk)
+      \item A new script \code{deadliners.r} showing CRAN packages 'under
+      deadline' has been added, and then refined (Dirk)
+      \item The \code{kitten.r} script can now use \pkg{whoami} and argument
+      \code{githubuser} on the different \code{*kitten} helpers it calls (Dirk)
+      \item A new script \code{wb.r} can upload to win-builder (Dirk)
+      \item A new script \code{crup.r} can upload a CRAN submission (Dirk)
+      \item In \code{rcc.r}, the return from \pkg{rcmdcheck} is now
+      explicitly printed (Dirk)
+      \item In \code{r2u.r} the \code{dry-run} option is passed to the build
+      command (Dirk)
+    }
+    \item Changes in package
+    \itemize{
+      \item Regular updates to badges, continuous integration, DESCRIPTION
+      and \code{configure.ac} (Dirk)
+      \item Errant \code{osVersion} return value are handled more robustly
+      (Michael Chirico in \ghpr{121})
+      \item The current run-time path is available via variable
+      \code{LITTLER_SCRIPT_PATH} (Jon Clayden in \ghpr{122})
+      \item The cleanup script remove macOS debug symbols (Jon Clayden in
+      \ghpr{123})
+    }
+  }
+}
+
+\section{Changes in littler version 0.3.20 (2024-03-23)}{
+  \itemize{
+    \item Changes in examples scripts
+    \itemize{
+      \item New (dependency-free) helper \code{installDeps2.r} to install dependencies
+      \item Scripts \code{rcc.r}, \code{tt.r}, \code{tttf.r}, \code{tttlr.r}
+      use \code{env} argument \code{-S} to set \code{-t} to \code{r}
+      \item \code{tt.r} can now fill in \code{inst/tinytest} if it is present
+      \item New script \code{ciw.r} wrapping new package \pkg{ciw}
+      \item \code{tttf.t} can now use \pkg{devtools} and its \code{loadall}
+      \item New script \code{doi2bib.r} to call the DOI converter REST
+      service (following a skeet by Richard McElreath)
+    }
+    \item Changes in package
+    \itemize{
+      \item The CI setup use checkout@v4 and the r-ci-setup action
+      \item The Suggests: is a little tighter as we do not list all packages
+      optionally used in the the examples (as R does not check for it either)
+      \item The package load messag can account for the rare build of R under
+      different architecture (Berwin Turlach in \ghpr{117} closing \ghit{116})
+      \item In non-vanilla mode, the temporary directory initialization in
+      re-run allowing for a non-standard temp dir via config settings
+    }
+  }
+}
+
+\section{Changes in littler version 0.3.19 (2023-12-17)}{
+  \itemize{
+    \item Changes in examples scripts
+    \itemize{
+      \item The help or usage text display for \code{r2u.r}, \code{ttt.r},
+      \code{check.r} has been improved, expanded or corrected, respectively
+      \item \code{installDeps.r} has a new argument for dependency selection
+      \item An initial 'single test file' runner \code{tttf.r} has been added
+      \item \code{r2u.r} has two new options for setting / varying the Debian
+      build version of package that is built, and one for BioConductor
+      builds, one for a 'dry run' build, and a new \code{--compile} option
+      \item \code{installRSPM.r}, \code{installPPM.r}, \code{installP3M.r}
+      have been updates to reflect the name changes
+      \item \code{installRub.r} now understands 'package@universe' too
+      \item \code{tt.r} flips the default of the \code{--effects} switch
+    }
+  }
+}
+
 \section{Changes in littler version 0.3.18 (2023-03-25)}{
   \itemize{
     \item Changes in examples scripts
@@ -332,7 +442,7 @@
       \item New script \code{c4c.r} calling \code{rhub::check_for_cran()}
       \item New script \code{rd2md.r} to convert Rd to markdown.
       \item New script \code{build.r} to create a source tarball.
-      \item The \code{installGitHub.r} script now use package
+      \item The \code{installGithub.r} script now use package
       \CRANpkg{remotes} (PR \ghpr{44}, \ghpr{46})
     }
   }

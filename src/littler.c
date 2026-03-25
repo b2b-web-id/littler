@@ -1,7 +1,7 @@
 /*
  *  littler - Provides hash-bang (#!) capability for R (www.r-project.org)
  *
- *  Copyright (C) 2006 - 2022  Jeffrey Horner and Dirk Eddelbuettel
+ *  Copyright (C) 2006 - 2024  Jeffrey Horner and Dirk Eddelbuettel
  *
  *  littler is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -693,9 +693,13 @@ int main(int argc, char **argv){
 #endif
             source(dotlittler);
         }
+
+        littler_InitTempDir();		/* Re-set up temporary directoy possibly reflecting user vars */
+
     }
 
-    if (libpathstr != NULL) {			/* if requested by user, set libPaths */
+
+    if (libpathstr != NULL) {		/* if requested by user, set libPaths */
         char buf[128];
         membuf_t pb = init_membuf(512);
         snprintf(buf, 127 - 12 - strlen(libpathstr), ".libPaths(\"%s\");", libpathstr);
@@ -734,6 +738,17 @@ int main(int argc, char **argv){
         exit_val = parse_eval(&pb, evalstr, 1, verbose);
         destroy_membuf(pb);
     } else if (optind < argc && (strcmp(argv[optind],"-") != 0)) {
+        /* set environment variable giving path to script file */
+#if defined(HAVE_REALPATH) && defined(PATH_MAX)
+        char script_path[PATH_MAX + 1];
+        if (realpath(argv[optind], script_path) != NULL)
+            setenv("LITTLER_SCRIPT_PATH", script_path, 1);
+        else
+            setenv("LITTLER_SCRIPT_PATH", argv[optind], 1);
+#else
+        setenv("LITTLER_SCRIPT_PATH", argv[optind], 1);
+#endif
+
         /* call R function source(filename) */
         exit_val = source(argv[optind]);
     } else {

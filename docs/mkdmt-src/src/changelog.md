@@ -1,5 +1,388 @@
+###  2026 
+
+2026-02-03  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.3.22 
+ 
+        * inst/examples/installGithub.r: If `bspm` is installed and configured 
+        to prefer binaries set `type` to `both` to so that r2u can ship them 
+ 
+2026-01-08  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/checkPackageURLs.r: New script to check URLs (and DOIs) 
+ 
+2026-01-04  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * .github/workflows/ci.yaml: Switch to actions/checkout@v6 
+ 
+###  2025 
+
+2025-10-09  Michael Chirico  <chiricom@google.com> 
+ 
+        * inst/examples/installRub.r: Handle "bizarre" (`?osVersion`) 
+        case where `utils::osVersion` is `NULL` (redux / corrected from 2024-11-01) 
+ 
+2025-09-18  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/installRub.r: Be more tolerant of input arguments 
+ 
+2025-09-03  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/installRub.r: Set 'noble' as default Ubuntu distro 
+ 
+2025-08-26  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/rcc.r: Pass build-args to rcmdcheck to compact 
+        vignettes and save data (both are helpful when checking a directory) 
+ 
+2025-07-09  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/install2.r: Support options `--quiet` and `--verbose` 
+        as proposed by Zivan Karaman in #124 
+ 
+2025-05-20  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/deadliners.r: Support column width override 
+ 
+2025-04-23  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/deadliners.r: Adjust screen width for display 
+ 
+2025-04-22  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/r2u.r: Update source of 'last updated' info for p3m 
+ 
+2025-04-10  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * src/scripts/littler.R: Allow double quotes in env.vars 
+ 
+2025-03-26  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/r2u.r: Default to the noble release if none specified 
+ 
+2025-03-25  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/busybees.r: First minimal version of new helper 
+        aggregating deadlined packages per maintainer 
+ 
+2025-03-24  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.3.21 
+ 
+2025-03-23  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/r2u.r: Pass 'dryrun' option to build command 
+ 
+2025-02-11  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/kitten.r: Pass 'githubuser' to skeleton functions in 
+        from Rcpp and RcppArmadillo packages 
+ 
+2025-02-11  Jon Clayden  <code@clayden.org> 
+ 
+        * cleanup: Clean up macOS debug symbol directory 
+ 
+2025-02-08  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll micro version and date 
+ 
+        * inst/examples/kitten.r: Support githubuser argument in call 
+ 
+2025-02-05  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/rcc.r (rccwrapper): Print rcmdcheck result 
+ 
+2025-02-01  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * .github/workflows/ci.yaml: Switch to r-ci action 
+ 
+2025-01-29  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/crup.r: New helper 'crup.r' to 'CRan UPload' a package 
+ 
+        * inst/examples/wb.r: Add verbose flag with default FALSE 
+ 
+        * configure.ac: Remove an ancient yet commented-out section to not 
+        upset 'checkbashism', update one comparison 
+        * configure: Regenerated 
+ 
+2025-01-22  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll micro version and date 
+ 
+2025-01-21  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/wb.r: New helper for win-builder uploads 
+ 
+2025-01-17  Jon Clayden  <code@clayden.org> 
+ 
+        * src/littler.c: Make run-time path available via LITTLER_SCRIPT_PATH 
+        environment variable when 'r' is used in a shebang line 
+        * inst/man-page/r.1: Brief documentation of the LITTLER_SCRIPT_PATH 
+        environment variable described above 
+ 
+        * configure.ac: Add check for realpath function used by the facility above 
+        * configure: Idem 
+        * src/config.h.in: Idem 
+ 
+###  2024 
+
+2024-11-01  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll micro version and date 
+ 
+2024-11-01  Michael Chirico  <chiricom@google.com> 
+ 
+        * inst/examples/installRub.r: Handle "bizarre" (`?osVersion`) 
+        case where `utils::osVersion` is `NULL` 
+ 
+2024-08-30  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Authors@R): Added 
+ 
+2024-08-28  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/kitten.r: Use package 'whoami' if available for 
+        author and email default 
+ 
+        * DESCRIPTION: Add Suggests for 'whomai' package 
+ 
+2024-07-31  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/r2u.r: Minor documentation update 
+ 
+2024-07-07  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/deadliners.r: Use getOption("width") 
+ 
+        * inst/examples/ciw.r: Add new --g age | --max age option 
+ 
+2024-06-24  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/deadliners.r: A little formatting and colour 
+ 
+2024-06-12  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/deadliners.r: Minimal 'Deadline' field printer 
+ 
+2024-06-10  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/tttl.r: Support load_package argument switch 
+ 
+2024-06-03  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/installRub.r: Add --minimal flag to not add CRAN 
+ 
+2024-05-29  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/installRub.r: Add --disable flag to skip bspm 
+ 
+2024-05-16  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Use tinyverse.netlify.app for dependency badge 
+ 
+2024-05-07  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/r2u.r: Support 24.04 aka 'noble' 
+ 
+2024-05-03  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll micro version and date 
+ 
+2024-03-31  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/ciw.r: Minor edit to usage text 
+ 
+2024-03-23  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.3.20 
+        * configure.ac: Idem 
+        * configure: Idem 
+ 
+2024-03-17  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/ciw.r: Correct one documentation label 
+ 
+2024-03-14  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/doi2bib.r: Allow multiple DOIs, check packages 
+ 
+2024-03-13  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/doi2bib.r: New wrapper for DOI request for bibtex entry 
+ 
+2024-03-11  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll micro version and date 
+ 
+2024-03-10  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * R/init.R: Tweaks to generalized message 
+ 
+        * src/littler.c: In non-vanilla mode, rerun temp. dir initialization 
+        after local configuration files to allow for non-standard temp. file 
+ 
+2024-03-10  Berwin A Turlach <berwin.turlach@gmail.com> 
+ 
+        * R/init.R: Generalize message to reflect ${R_ARCH} (if set) 
+ 
+2024-03-06  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/ciw.r: Add connectivity check, tweak lines display 
+ 
+2024-03-05  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/tttf.r: Support devtools::load_all() option 
+ 
+2024-03-02  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/ciw.r: Several small tweaks 
+ 
+2024-02-29  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/ciw.r: New wrapper around ciw::incoming() 
+ 
+2024-02-28  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/tttf.r: Use env -S r -t for per-session temp dir, 
+        support command-line argument -c | --ci to set env.var CI 
+ 
+2024-02-25  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Suggests): Removed package used in only one example 
+ 
+2024-02-22  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll micro version and date 
+ 
+        * inst/examples/tt.r: Fill in "inst/tinytest" if `-d | --dir` 
+        but the target directory was omitted, and exists 
+ 
+2024-02-20  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll micro version and date 
+ 
+        * inst/examples/tt.r: Use env -S r -t for per-session temp dir, 
+        support command-line argument -c | --ci to set env.var CI 
+ 
+2024-02-16  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * .github/workflows/ci.yaml (jobs): Update to actions/checkout@v4, 
+        add r-ci-setup actions 
+ 
+2024-01-18  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/tttl.r: Use env -S r -t for per-session temp dir 
+ 
+2024-01-16  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/rcc.r (rccwrapper): Use env -S r -t to switch to 
+        using a per-session temporary directory as R does 
+ 
+2024-01-03  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll micro version and date 
+ 
+        * inst/examples/installDeps2.r: Add simpler, dependency-free second 
+        variant of 'install dependencies found in DESCRIPTION' 
+ 
 ###  2023 
 
+2023-12-17  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Version, Date): Release 0.3.19 
+        * configure.ac: Idem 
+        * configure: Idem 
+ 
+2023-12-12  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/installRSPM.r: Update to p3m, install as installP3M.r 
+ 
+2023-12-01  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/r2u.r: Add new --compile flag, small edits 
+ 
+        * inst/examples/installDeps.r: Small edit for --help text 
+ 
+2023-11-03  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/installGithub.r: Add usage example for installation 
+        from repository sub-directory 
+ 
+2023-10-09  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/r2u.r: Add --dryrun argument for (single) package build 
+ 
+2023-10-03  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/tt.r: Switch the default value for 'effects' from 
+        FALSE to TRUE which, while a breaking change, is the better default. 
+ 
+2023-09-25  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/installRub.r: Also allow 'package@universe' format 
+ 
+2023-09-20  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/r2u.r: Another posit.co URL update 
+ 
+2023-09-19  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/tttf.r: Extend --library to several arguments 
+ 
+2023-09-16  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/installRSPM.r: Edits to help text, also show default 
+        distribution 
+ 
+2023-09-02  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/r2u.r: Support BioConductor updates 
+ 
+2023-09-01  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/tttf.r: Add --source argument 
+ 
+2023-08-21  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll micro version and date 
+ 
+        * README.md: Add r-universe badge 
+ 
+2023-08-20  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/installRSPM.r: Minor edits for coexistence, update 
+        base url to new corporate name and URL 
+        * inst/examples/installPPM.r: Install as hard link to installRSPM.r 
+ 
+2023-08-09  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * DESCRIPTION (Date, Version): Roll micro version and date 
+ 
+        * inst/examples/r2u.r: Add two more options for modifying the Debian 
+        version of a package being built 
+ 
+        * inst/examples/tttf.r: Very initial version of a single file 
+        testthat runner (aka 'testthat::test_file()' 
+ 
+2023-07-15  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/installDeps.r: Support dependencies argument 
+ 
+        * inst/examples/check.r: Correct one line in help text 
+ 
+2023-06-01  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * README.md: Note more prominently that this does not build on Windows 
+ 
+2023-05-15  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/tttl.r: Expanded usage text 
+ 
+2023-05-11  Dirk Eddelbuettel  <edd@debian.org> 
+ 
+        * inst/examples/r2u.r: Micro-edit to displayed text 
+ 
 2023-03-25  Dirk Eddelbuettel  <edd@debian.org> 
  
         * DESCRIPTION (Version, Date): Release 0.3.18 

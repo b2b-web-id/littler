@@ -1,8 +1,8 @@
-#!/usr/bin/env r
+#!/usr/bin/env -S r -t
 #
 # tinytest wrapper
 #
-# Copyright (C) 2019 - 2022  Dirk Eddelbuettel
+# Copyright (C) 2019 - 2024  Dirk Eddelbuettel
 #
 # Released under GPL (>= 2)
 
@@ -16,16 +16,17 @@ suppressMessages({
 })
 
 ## configuration for docopt
-doc <- "Usage: tt.r [-h] [-x] [-a] [-b] [-d] [-f] [-n NCPUS] [-p] [-s] [-z] [ARG...]
+doc <- "Usage: tt.r [-h] [-x] [-a] [-b] [-c] [-d] [-f] [-n NCPUS] [-p] [-s] [-z] [ARG...]
 
 -a --all            use test_all mode [default: FALSE]
 -b --build          use build-install-test mode [default: FALSE]
+-c --ci             set environment variable CI to TRUE [default: FALSE]
 -d --directory      use directory mode [default: FALSE]
 -f --file           use file mode [default: FALSE]
 -n --ncpus NCPUS    use 'ncpus' in parallel [default: getOption]
 -p --package        use package mode [default: FALSE]
 -s --silent         use silent and do not print result [default: FALSE]
--z --effects        suppress side effects [default: FALSE]
+-z --effects        show side effects [default: FALSE]
 -h --help           show this help text
 -x --usage          show help and short example usage"
 opt <- docopt(doc)			# docopt parsing
@@ -47,7 +48,7 @@ See https://dirk.eddelbuettel.com/code/littler.html for more information.\n")
     q("no")
 }
 
-sideeffects <- if (opt$effects) FALSE else TRUE       # by default, use side effects
+sideeffects <- if (opt$effects) TRUE else FALSE		# by default, do not show side effects
 
 if (opt$ncpus == "getOption") {
     opt$ncpus <- getOption("Ncpus", 1L)
@@ -58,6 +59,9 @@ if (opt$ncpus == "getOption") {
     opt$ncpus <- as.integer(opt$ncpus)
 }
 
+if (opt$ci) {
+    Sys.setenv(CI="TRUE")
+}
 
 res <- NULL
 if (opt$all) {
@@ -67,6 +71,7 @@ if (opt$all) {
 } else if (opt$file) {
     res <- run_test_file(opt$ARG, side_effects=sideeffects)
 } else if (opt$directory) {
+    if (length(opt$ARG) == 0 && dir.exists("inst/tinytest")) opt$ARG <- "inst/tinytest"
     res <- run_test_dir(opt$ARG, side_effects=sideeffects)
 } else if (opt$package) {
     if (opt$ncpus == 1L) {

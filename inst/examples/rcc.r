@@ -1,8 +1,8 @@
-#!/usr/bin/env r
+#!/usr/bin/env -S r -t
 ##
 ##  Call 'rcmdcheck' on a package
 ##
-##  Copyright (C) 2016 - 2023  Dirk Eddelbuettel
+##  Copyright (C) 2016 - 2024  Dirk Eddelbuettel
 ##
 ##  Released under GPL (>= 2)
 
@@ -75,7 +75,11 @@ suppressMessages(library(rcmdcheck))
 Sys.setenv("_R_CHECK_TESTS_NLINES_"="0")        # ensure all errors shown
 
 rccwrapper <- function(pa, qu, ar, li, re, eo) {
-    rcmdcheck(path=pa, quiet=qu, args=ar, libpath=li, repos=re, error_on=eo)
+    res <- rcmdcheck(path=pa, quiet=qu, args=ar,
+                     build_args=c("--compact-vignettes=both", "--resave-data"),
+                     libpath=li, repos=re, error_on=eo)
+    print(res)
+    res
 }
 
 rc <- sapply(opt$PATH,                  # iterate over arguments

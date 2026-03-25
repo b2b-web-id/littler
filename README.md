@@ -1,9 +1,10 @@
 ## littler: A scripting and command-line front-end for GNU R
 
 [![CI](https://github.com/eddelbuettel/littler/workflows/ci/badge.svg)](https://github.com/eddelbuettel/littler/actions?query=workflow%3Aci)
-[![License](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](https://www.gnu.org/licenses/gpl-2.0.html)
+[![License](https://img.shields.io/badge/license-GPL%20%28%3E=%202%29-brightgreen.svg?style=flat)](https://www.r-project.org/Licenses/GPL-2)
 [![CRAN](https://www.r-pkg.org/badges/version/littler)](https://cran.r-project.org/package=littler)
-[![Dependencies](https://tinyverse.netlify.com/badge/littler)](https://cran.r-project.org/package=littler)
+[![r-universe](https://eddelbuettel.r-universe.dev/badges/littler)](https://eddelbuettel.r-universe.dev/littler)
+[![Dependencies](https://tinyverse.netlify.app/badge/littler)](https://cran.r-project.org/package=littler)
 [![Downloads](https://cranlogs.r-pkg.org/badges/littler?color=brightgreen)](https://www.r-pkg.org/pkg/littler)
 [![Last Commit](https://img.shields.io/github/last-commit/eddelbuettel/littler)](https://github.com/eddelbuettel/littler)
 [![Documentation](https://img.shields.io/badge/documentation-is_here-blue)](https://eddelbuettel.github.io/littler/)
@@ -24,27 +25,30 @@ r --help                      ## to show a quick synopsis
 
 ### Examples?
 
-Plenty. See the [examples vignette](https://cran.r-project.org/package=littler/vignettes/littler-examples.html)
-for a full set of introductory examples. Also
-see the [examples/ directory](https://github.com/eddelbuettel/littler/tree/master/inst/examples) for a full 28
-example scripts, as well as maybe the
-[older tests directory](https://github.com/eddelbuettel/littler/tree/master/inst/script-tests)
-both of which are installed with the package.
+Plenty. See the [(older) examples
+vignette](https://cran.r-project.org/package=littler/vignettes/littler-examples.html) for a full set
+of introductory examples. Also see the [examples/
+directory](https://github.com/eddelbuettel/littler/tree/master/inst/examples) for a full 63 (!!)
+example scripts (as of early 2026), as well as maybe the [older tests
+directory](https://github.com/eddelbuettel/littler/tree/master/inst/script-tests) both of which are
+installed with the package.
 
 Some scripts I use daily or near daily (in alphabetical order):
 
-```
-build.r                                ## builds from the current directory
-c4c.r                                  ## submits current directory to winbuilder
-compAttr.r                             ## run compileAttributes() for a Rcpp package
-dratInstert.r 1.2-3.tar.gz -r /srv     ## inserts package into drat repo
-install.r abc def                      ## installs packages abc and def
-install.r abc_1.2-3.tar.gz             ## installs given tarball
-install2.r -l /tmp/lib abc def         ## installs abc and def into /tmp/lib
-rcc.r abc_1.2-3.tar.gz                 ## run's R CMD check via Gabor's rcmdcheck
-render.r foo.Rmd                       ## calls rmarkdown::render()
-roxy.r                                 ## run roxygenize() for a package (only Rd creation)
-update.r                               ## updates any currently installed packages
+```sh
+build.r                                # builds from the current directory
+c4c.r                                  # submits current directory to winbuilder
+compAttr.r                             # run compileAttributes() for a Rcpp package
+dratInsert.r 1.2-3.tar.gz -r /srv      # inserts package into drat repo
+install.r abc def                      # installs packages abc and def
+install.r abc_1.2-3.tar.gz             # installs given tarball
+install2.r -l /tmp/lib abc def         # installs abc and def into /tmp/lib
+rcc.r abc_1.2-3.tar.gz                 # run's R CMD check via Gabor's rcmdcheck
+render.r foo.Rmd                       # calls rmarkdown::render()
+roxy.r                                 # run roxygenize() for a package (only Rd creation)
+update.r                               # updates any currently installed packages
+installGithub.r repo/package           # install directly from GitHub
+crup.r abc_1.2-3.tar.gz                # CRAN upload of package
 ```
 
 ### Installation
@@ -56,6 +60,13 @@ The package resides on the CRAN network and can be installed via
 ```
 install.packages("littler")
 ```
+
+Note that the package states `OS_type: unix`. It works great on all Linux
+variants, with a naming caveat on macOS (see below and the [FAQ
+vignettes](https://github.com/eddelbuettel/littler/blob/master/vignettes/littler-faq.md))
+and not at all on Windows (but could be ported just like
+[RInside](https://github.com/eddelbuettel/rinside) has been--the two show
+architectural similarities).
 
 #### Previous Versions up to 0.2.3
 
